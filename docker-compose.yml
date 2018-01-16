@@ -1,0 +1,27 @@
+version: '3'
+services:
+    spse:
+        build:
+            context: .
+            dockerfile: SPSE.Dockerfile
+        volumes:
+            - ./src:/src
+        command: "tail -f /dev/null"
+    
+    dvwa:
+        image: "vulnerables/web-dvwa"   
+        ports:
+            - "80:80"
+            - "3306:3306"
+    webgoat8:
+        image: "webgoat/webgoat-8.0"
+        ports:
+            - "8080:8080"
+        command: /bin/bash -c "/home/webgoat/start.sh"
+
+    webgoat5:
+        build:
+            context: .
+            dockerfile: webgoat5.Dockerfile
+        ports:
+            - "8081:8080"
